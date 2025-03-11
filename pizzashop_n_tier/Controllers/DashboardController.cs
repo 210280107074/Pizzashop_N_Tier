@@ -21,7 +21,9 @@ public class DashboardController : Controller
     private readonly ICookieService _CookieService;
 
     public readonly IItemService _itemService;
-    public DashboardController(ILogin log, IUser user, ICookieService cookieService, IEmailGenService emailService, IMenuService menuService, IItemService itemService)
+
+    public readonly IPermissionService _permissionService;
+    public DashboardController(ILogin log, IUser user, IPermissionService permissionService,ICookieService cookieService, IEmailGenService emailService, IMenuService menuService, IItemService itemService)
     {
         _log = log;
         _user = user;
@@ -29,6 +31,7 @@ public class DashboardController : Controller
         _emailService = emailService;
         _menuService = menuService;
         _itemService = itemService;
+        _permissionService = permissionService;
     }
     public IActionResult ShowDashboard()
     {
@@ -255,10 +258,10 @@ public class DashboardController : Controller
 
     //     }
     [HttpPost]
-    public IActionResult UpdatePermissions(PermissionsModel model)
+    public IActionResult UpdatePermissions(PermissionsModel2 model,int roleid)
     {
-        _user.updatePermissions(model);
-        return RedirectToAction("permissionsOfRole", "Dashboard");
+       _permissionService.UpdatePermissions(model);
+    return View("permissions");
     }
 
     public IActionResult Menu()

@@ -1,6 +1,7 @@
 using BAL.Implementations;
 using BAL.Interfaces;
 using DAL.Data;
+using DAL.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,8 @@ builder.Services.AddScoped<IMenuService,MenuImpl>();
 builder.Services.AddScoped<IItemService,ItemsImple>();
 builder.Services.AddScoped<IItemRepository,ItemRepository>();
 builder.Services.AddScoped<IImagePath,imagePathImpl>();
+builder.Services.AddScoped<IPermissionService,PermissionImple>();
+builder.Services.AddScoped<IRoleAndPermissionRepository,RoleAndPermissionRepository>();
 
 builder.Services.AddSession(options =>
 {

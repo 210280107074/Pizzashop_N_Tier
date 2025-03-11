@@ -30,7 +30,8 @@
             <label for="floatingInput" class="floatlabel">Role</label>
           </div>
 
-          <form id="form">
+          <form id="form" method="post" asp-action="UpdatePermissions" asp-controller="Dashboard">
+                  <input type="hidden" name="roleid"  asp-for="roleid" value="@Model.roleid" id="flexSwitchCheckChecked" >
             <div class="table-container">
               <table class="table">
                 <thead>
@@ -47,20 +48,25 @@
                     <th scope="col">can Add/Edit</th>
                     <th scope="col">can Delete</th>
                   </tr>
+                <tbody>       
                 </thead>
-                <tbody>
-
-                         
                   @for (int i=0;i<Model.plist.Count;i++)
                   {
                     <tr>
                       <th scope="row">
                         <div class="form-check">
-                          <input class="form-check-input subcheck" type="checkbox" id="flexCheckDefault"
-                            @(Model.gpermissionid.Contains(@Model.plist[i].Permissionid) ? "checked" : "")>
+
+                          @if(Model.gpermissionid.Contains(@Model.plist[i].Permissionid)){
+
+                          <input class="form-check-input subcheck" type="checkbox" asp-for="@Model.permissionModel[i].IsChecked" id="flexCheckDefault" checked>
+                          }
+                          else{
+                          <input class="form-check-input subcheck" type="checkbox" asp-for="@Model.permissionModel[i].IsChecked" id="flexCheckDefault" >
+                          }
                           <label class="form-check-label" for="flexCheckDefault">
                             @Model.plist[i].Permissionname
                           </label>
+                          <input class="form-check-input toggle" type="text"  asp-for="@Model.permissionModel[i].PermissionId" value="@Model.plist[i].Permissionid" id="flexSwitchCheckChecked" hidden>
                         </div>
                       </th>
                       <td>
@@ -72,11 +78,8 @@
                           }
                           else{
                           <input class="form-check-input toggle" type="checkbox"  asp-for="@Model.permissionModel[i].can_view" id="flexSwitchCheckChecked" >
-                          
                           }
                         </div>
-
-                        @* jcd *@
                       </td>
                       <td>
                         <div class="form-check form-switch">
@@ -107,7 +110,6 @@
                 </tbody>
               </table>
             </div>
-                          @* <label>false</label> *@
             <div class="w-25 h-50 d-flex justify-content-end" style="margin-left: auto;">
               <button type="submit" class="btn btn-primary me-2 w-50 ">Update</button>
               <button type="reset" class="btn btn-outline-primary w-50">cancel</button>
@@ -118,7 +120,7 @@
     </div>
   </div>
 
-  <script>
+  @* <script>
     var headcheck = document.querySelector("#mastercheck");
     headcheck.addEventListener("change", function(){
         var checkboxes = document.querySelectorAll(".subcheck");
@@ -126,7 +128,73 @@
             checkbox.checked = headcheck.checked;
         });
     });
+
+
+</script> *@
+
+@* <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var headcheck = document.querySelector("#mastercheck");
+    var subchecks = document.querySelectorAll(".subcheck");
+
+    // Toggle all subchecks when master checkbox is changed
+    headcheck.addEventListener("change", function () {
+      subchecks.forEach(function (checkbox) {
+        checkbox.checked = headcheck.checked;
+        toggleSwitches(checkbox);
+      });
+    });
+
+    // Attach event listener to each subcheck
+    subchecks.forEach(function (checkbox) {
+      checkbox.addEventListener("change", function () {
+        toggleSwitches(checkbox);
+      });
+    });
+
+    function toggleSwitches(checkbox) {
+      var row = checkbox.closest("tr");
+      var toggles = row.querySelectorAll(".toggle");
+
+      toggles.forEach(function (toggle) {
+        toggle.disabled = !checkbox.checked;
+      });
+    }
+
+    // Initially disable toggles for unchecked subchecks
+    subchecks.forEach(function (checkbox) {
+      toggleSwitches(checkbox);
+    });
+  });
+</script> *@
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var subchecks = document.querySelectorAll(".subcheck");
+
+    subchecks.forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+            toggleSwitches(checkbox);
+        });
+
+        // Initially disable toggles for unchecked subchecks
+        toggleSwitches(checkbox);
+    });
+
+    function toggleSwitches(checkbox) {
+        var row = checkbox.closest("tr");
+        var toggles = row.querySelectorAll(".toggle");
+
+        toggles.forEach(function (toggle) {
+            toggle.disabled = !checkbox.checked;
+            if (!checkbox.checked) {
+                toggle.checked = false; // Uncheck permissions when disabled
+            }
+        });
+    }
+});
+
 </script>
+
 
   
 </body>

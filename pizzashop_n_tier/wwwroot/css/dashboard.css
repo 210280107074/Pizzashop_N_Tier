@@ -20,7 +20,8 @@ html,
 
     
     .dropbtn{
-        background-color: transparent
+        background-color: transparent;
+        width: 100%;
     }
     .dropdown-menu[data-bs-popper] {
         top: 100%;

@@ -3,6 +3,8 @@ public class PermissionModel3{
         get;
         set;
     }
+
+     public bool IsChecked { get; set; } // Track if the main permission is checked
     public bool can_view{
         get;
         set;

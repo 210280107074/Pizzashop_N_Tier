@@ -48,7 +48,8 @@ public class GenericRepository : IGenericRepository
             return false;
         }
     }
-    public List<Role> getAllRoles(){
+    public List<Role> getAllRoles()
+    {
         return _context.Roles.ToList();
     }
 
@@ -129,7 +130,7 @@ public class GenericRepository : IGenericRepository
 
     public decimal getUserCount()
     {
-        return _context.Users.Where(u=>u.Isdeleted == false).Count();
+        return _context.Users.Where(u => u.Isdeleted == false).Count();
     }
 
     public User getUserDetailFromDb(int userid)
@@ -185,7 +186,7 @@ public class GenericRepository : IGenericRepository
         return userlist;
     }
 
-    public void saveNewUserInDb(UserDetailModel model, string email, string pass,string imagePath)
+    public void saveNewUserInDb(UserDetailModel model, string email, string pass, string imagePath)
     {
         var log = _context.Logins.FirstOrDefault(lg => lg.Email == email);
         if (log == null)
@@ -212,7 +213,7 @@ public class GenericRepository : IGenericRepository
             Cityid = model.cityid,
             Address = model.address,
             Zipcode = model.Zipcode,
-            Profilephoto = imagePath, 
+            Profilephoto = imagePath,
             Isdeleted = false
         };
 
@@ -248,7 +249,7 @@ public class GenericRepository : IGenericRepository
         }
     }
 
-    public void updateUserInDb(UserDetailModel model, string email,string imagePath)
+    public void updateUserInDb(UserDetailModel model, string email, string imagePath)
     {
 
         // string? imagePath = null;
@@ -283,8 +284,9 @@ public class GenericRepository : IGenericRepository
         user.Stateid = _context.States.FirstOrDefault(s => s.Stateid == model.stateid).Stateid;
         user.Address = model.address;
         user.Zipcode = model.Zipcode;
-        if(imagePath != null){
-        user.Profilephoto = imagePath;
+        if (imagePath != null)
+        {
+            user.Profilephoto = imagePath;
         }
         _context.Users.Update(user);
         _context.SaveChanges();
@@ -334,9 +336,9 @@ public class GenericRepository : IGenericRepository
 
     }
 
-    public void updateUserInDb(UserDetailModel model, int id,string imagePath)
+    public void updateUserInDb(UserDetailModel model, int id, string imagePath)
     {
-       var user = _context.Users.FirstOrDefault(u => u.Userid == id);
+        var user = _context.Users.FirstOrDefault(u => u.Userid == id);
         Console.WriteLine(id + " for updateuser");
         user.Firstname = model.firstname;
         user.Lastname = model.lastname;
@@ -355,39 +357,53 @@ public class GenericRepository : IGenericRepository
 
     public List<Rolesandpermission> getPemissionsFromDb(int roleid)
     {
-      var temp = _context.Rolesandpermissions.Where(rp=>rp.Roleid == roleid)
-                        .OrderBy(rp=>rp.Permissionid).ToList();
-      return temp;
+        var temp = _context.Rolesandpermissions.Where(rp => rp.Roleid == roleid)
+                          .OrderBy(rp => rp.Permissionid).ToList();
+        return temp;
     }
 
     public string getPermissionName(int permissionid)
     {
-        string permissionname = _context.Permissions.FirstOrDefault(p=>p.Permissionid == permissionid).Permissionname;
+        string permissionname = _context.Permissions.FirstOrDefault(p => p.Permissionid == permissionid).Permissionname;
         return permissionname;
     }
 
-    public void updatePermission(int permissionid, bool can_view, bool can_Edit, bool can_delete,int roleid)
+    public void updatePermission(int permissionid, bool can_view, bool can_Edit, bool can_delete, int roleid)
     {
-        Rolesandpermission permission = _context.Rolesandpermissions.FirstOrDefault(rp=> rp.Roleid == roleid && rp.Permissionid == permissionid); 
-        permission.Canedit = can_Edit;
-        permission.Canview = can_Edit;
-        permission.Candelete = can_delete;
-        _context.Update(permission);
-        _context.SaveChanges();
+        Rolesandpermission rp = _context.Rolesandpermissions.FirstOrDefault(rp => rp.Permissionid == permissionid && rp.Roleid == roleid);
 
+        if (rp == null)
+        {
+            Rolesandpermission r = new Rolesandpermission();
+            r.Roleid = roleid;
+            r.Permissionid = permissionid;
+            r.Canedit = can_Edit;
+            r.Candelete = can_delete;
+            r.Canview = can_view;
+            r.Rolesandpermissionid = _context.Rolesandpermissions.Count() + 1;
+            _context.Rolesandpermissions.Add(r);
+        }
+        else
+        {
+            rp.Canview = can_view;
+            rp.Canedit = can_Edit;
+            rp.Candelete = can_delete;
+            _context.Update(rp);
+        }
+        _context.SaveChanges();
     }
 
     public List<Permission> getAllPermissions()
     {
         List<Permission> permissions = _context.Permissions
-                                            .OrderBy(rp=>rp.Permissionid)
+                                            .OrderBy(rp => rp.Permissionid)
                                             .ToList();
         return permissions;
     }
 
     public string getRolename(int roleid)
     {
-       return _context.Roles.FirstOrDefault(r=>r.Roleid == roleid).Rolename;
+        return _context.Roles.FirstOrDefault(r => r.Roleid == roleid).Rolename;
     }
 
     public List<Category> getAllCategories()
@@ -396,27 +412,29 @@ public class GenericRepository : IGenericRepository
         return categories;
     }
 
-    public void addNewCategory(string categoryName, string categoryDescription,string createdBy)
+    public void addNewCategory(string categoryName, string categoryDescription, string createdBy)
     {
         Category category = new Category();
         category.Categoryname = categoryName;
-        category.Categoryid = _context.Categories.Count()+1;
+        category.Categoryid = _context.Categories.Count() + 1;
         category.Createdat = DateTime.Now;
         category.Description = categoryDescription;
         category.Modifiedat = DateTime.Now;
-        category.Createdby = _context.Logins.FirstOrDefault(lg=>lg.Email == createdBy).Id;
+        category.Createdby = _context.Logins.FirstOrDefault(lg => lg.Email == createdBy).Id;
         _context.Categories.Add(category);
         _context.SaveChanges();
-        
+
     }
 
     public bool IsUserExist(string email)
     {
-        User u = _context.Users.FirstOrDefault(u=>u.Email == email);
-        if(u != null){
+        User u = _context.Users.FirstOrDefault(u => u.Email == email);
+        if (u != null)
+        {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }

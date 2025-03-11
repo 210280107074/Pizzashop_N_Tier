@@ -14,7 +14,6 @@ public class PermissionsModel2{
         get;
         set;
     }
-
     public List<int> gpermissionid{
         get;
         set;

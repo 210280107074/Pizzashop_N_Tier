@@ -222,6 +222,7 @@ public class UserImpl : IUser
         model.plist = plist;
         model.gpermissionid = gpermissionid;
         model.grantedPermissions = rp;
+        model.roleid = roleid;
         model.rolename = _repository.getRolename(roleid);
         return model;
     }
@@ -240,5 +241,14 @@ public class UserImpl : IUser
     public void updatePermissions(PermissionsModel model)
     {
         throw new NotImplementedException();
+    }
+
+    public void updatePermissions(PermissionsModel2 model)
+    {
+        foreach(var permission in model.permissionModel){
+             if(permission.IsChecked){
+                _repository.updatePermission(permission.PermissionId,permission.can_edit,permission.can_view,permission.can_delete,model.roleid);
+             }
+        }
     }
 }

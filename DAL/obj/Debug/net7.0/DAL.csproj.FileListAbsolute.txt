@@ -12,3 +12,18 @@ C:\Users\pct78\pizzashop_N_tier\DAL\obj\Debug\net7.0\refint\DAL.dll
 C:\Users\pct78\pizzashop_N_tier\DAL\obj\Debug\net7.0\DAL.pdb
 C:\Users\pct78\pizzashop_N_tier\DAL\obj\Debug\net7.0\DAL.genruntimeconfig.cache
 C:\Users\pct78\pizzashop_N_tier\DAL\obj\Debug\net7.0\ref\DAL.dll
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\bin\Debug\net7.0\DAL.deps.json
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\bin\Debug\net7.0\DAL.runtimeconfig.json
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\bin\Debug\net7.0\DAL.dll
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\bin\Debug\net7.0\DAL.pdb
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\DAL.csproj.AssemblyReference.cache
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\DAL.AssemblyInfoInputs.cache
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\DAL.AssemblyInfo.cs
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\DAL.csproj.CoreCompileInputs.cache
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\DAL.sourcelink.json
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\DAL.dll
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\refint\DAL.dll
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\DAL.pdb
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\DAL.genruntimeconfig.cache
+E:\stranger things\Pizzashop_n_tier\Pizzashop_N_Tier\DAL\obj\Debug\net7.0\ref\DAL.dll
